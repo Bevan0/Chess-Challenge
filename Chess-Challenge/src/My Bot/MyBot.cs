@@ -18,7 +18,7 @@ public class MyBot : IChessBot
         board.MakeMove(move);
 
         if (board.SquareIsAttackedByOpponent(move.TargetSquare)) moveValue -= (pieceValues[(int)move.MovePieceType] - 100); // punish if move is unsafe
-        if (board.IsInCheckmate()) return 100000; // always play M1
+        if (board.IsInCheckmate()) moveValue += 1000000; // always play M1
         if (board.IsInCheck()) moveValue += 200; // add bonus if move is a check
         if (move.IsPromotion && !board.SquareIsAttackedByOpponent(move.TargetSquare)) moveValue += 1200; // add mega bonus is move is safe promotion
         if (move.IsEnPassant) moveValue += 1000; // en passant is super valuable
